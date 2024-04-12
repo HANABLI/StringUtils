@@ -38,4 +38,35 @@ TEST(StringUtilsTests, wcstombs_Test) {
 TEST(StringUtilsTests, Trim_Test) {
     ASSERT_EQ("Hello, World!", StringUtils::Trim("  \t  \t\t  Hello, World! \r  \n \r\n \t \t\t  "));
 }
+
+TEST(StringUtilsTests, Indent_Test) {
+    ASSERT_EQ(
+        "Hello, World!\r\n"
+        "  This is line 2\r\n"
+        "  This is line 3\r\n", 
+        StringUtils::Indent( 
+            "Hello, World!\r\n"
+            "This is line 2\r\n"
+            "This is line 3\r\n",
+            2
+        )
+    );
+
+    ASSERT_EQ(
+    (
+        "Struct {\r\n"
+        "  field 1\r\n"
+        "  field 2\r\n"
+        "}"
+    ),
+    "Struct {"
+    + StringUtils::Indent(
+        "\r\nfield 1"
+        "\r\nfield 2",
+        2
+    )
+    + "\r\n}"
+    );
+}
+
 }
