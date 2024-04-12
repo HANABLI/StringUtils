@@ -33,7 +33,20 @@ namespace StringUtils {
     */
     std::string vsprintf(const char* format, va_list args);
 
-    
+    /**
+     * This method convert a given string from wide (UNICODE) to 
+     * narrow (multibyte) format, using the currently set locale.
+     * 
+     * This method has the same semantics as the C function "wcstombc".
+     * 
+     * @param[in] src
+     *      This is the string to convert.
+     * 
+     * @return
+     *      returns a converted string.
+    */
+    std::string wcstombs(const std::wstring& src);
+
 }
 
 

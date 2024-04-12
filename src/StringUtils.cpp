@@ -35,4 +35,10 @@ namespace StringUtils
        }
        return std::string(buffer.begin(), buffer.begin() + required);
     }
+    std::string wcstombs(const std::wstring& src)
+    {
+        std::vector< char > buffer(src.length() * MB_CUR_MAX + 1);
+        (void)::wcstombs(&buffer[0], src.c_str(), buffer.size());
+        return std::string(&buffer[0]);
+    }
 } // namespace StringUtils
