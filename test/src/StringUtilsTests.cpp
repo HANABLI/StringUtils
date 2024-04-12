@@ -116,4 +116,18 @@ TEST(StringUtilsTests, JoinMultiCharacterDelimiter_Test) {
         StringUtils::Join(elements, ", ")
     );
 }
+
+TEST(StringUtilsTests, Tolowers_Test) {
+    EXPECT_EQ("hello", StringUtils::Tolower("Hello"));
+    EXPECT_EQ("hello", StringUtils::Tolower("hello"));
+    EXPECT_EQ("hello", StringUtils::Tolower("heLLo"));
+    EXPECT_EQ("example", StringUtils::Tolower("eXAmplE"));
+    EXPECT_EQ("example", StringUtils::Tolower("example"));
+    EXPECT_EQ("example", StringUtils::Tolower("EXAMPLE"));
+    EXPECT_EQ("foo1bar", StringUtils::Tolower("foo1BAR"));
+    EXPECT_EQ("foo1bar", StringUtils::Tolower("fOo1bAr"));
+    EXPECT_EQ("foo1bar", StringUtils::Tolower("foo1bar"));
+    EXPECT_EQ("foo1bar", StringUtils::Tolower("FOO1BAR"));
+}
+
 }
