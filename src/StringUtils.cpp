@@ -131,4 +131,18 @@ namespace StringUtils
         }
         return output;
     }
+
+    std::string Unescape(const std::string& s, char escapeCharacter) {
+        std::string output;
+        bool escape = false;
+        for (size_t i = 0; i < s.length(); i++) {
+            if((escapeCharacter == s[i]) && (!escape)) {
+                escape = true;
+            } else {
+                output += s[i];
+                escape = false;
+            }
+        }
+        return output;
+    }
 } // namespace StringUtils

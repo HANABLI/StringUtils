@@ -125,6 +125,21 @@ namespace StringUtils {
      *     string is prefixed by the given "escapeCharacter".
      */
     std::string Escape(const std::string& s, char escapeCharacter, const std::set< char >& charactersToEscape);
+
+    /**
+     * This function removes the given escapeCharacter from the given input
+     * string.
+     * 
+     * @param[in] s
+     *      This is the string from which to remove all escape characters.
+     * 
+     * @param[in] escapCharacter
+     *      This is the character to remove from the given input string.
+     * @return
+     *      returns the given input string after removong all instances of 
+     *      the given escapeCharacter.
+    */
+   std::string Unescape(const std::string& s, char escapeCharacter);
 }
 
 
