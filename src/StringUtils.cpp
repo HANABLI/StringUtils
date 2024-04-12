@@ -207,4 +207,12 @@ namespace StringUtils
         }
         return output.str();
     }
+
+    std::string Tolower(const std::string& s) {
+        std::ostringstream output;
+        for (char c: s) {
+            output << (char)tolower(c);
+        }
+        return output.str();
+    }
 } // namespace StringUtils

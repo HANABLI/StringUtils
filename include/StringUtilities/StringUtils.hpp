@@ -206,6 +206,17 @@ namespace StringUtils {
    *        delimiter character.
   */
  std::string Join(const std::vector< std::string >& v, const std::string& d );
+
+    /**
+     * This function check each character of the given string
+     * to convert them to lower-case.
+     * 
+     * @param[in] s
+     *      This is the string to check and to convert to lower-case.
+     * @return
+     *      Returns the given string in lower-case style
+    */
+   std::string Tolower(const std::string& s);
 }
 
 
