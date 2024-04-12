@@ -76,6 +76,32 @@ namespace StringUtils {
      *      returns the indented text as a single string.
     */
     std::string Indent(std::string linesIn, size_t spaces);
+
+    /**
+     * This fucntion returns a substring of the given string that contains
+     * the delimited component, such as string, "array", object, etc.., pairs:
+     * " "
+     * [ ]
+     * { }
+     * < >
+     * ( )
+     * 
+     * Escaped delimiter characters (i.e. "\{") are not considered as delimiters.
+     * 
+     * Any comma (',') or "outer-most" delimiter encountered while scanning 
+     * the string is considered to terminate the component.
+     * 
+     * @param[in] s
+     *      This is the string from which to extract the next delimited component.
+     * 
+     * @param[in] begin
+     *      This is the starting posistion from which to scan the next component.
+     * 
+     * @param[in] end
+     *      This is the limit to which the string will be scanned to determine
+     *      the next component.
+    */
+    std::string ParseComponent(const std::string& s, size_t begin, size_t end);
 }
 
 

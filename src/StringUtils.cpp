@@ -73,4 +73,51 @@ namespace StringUtils
         }
         return linesOut;
     }
+
+    std::string ParseComponent(const std::string& s, size_t begin, size_t end) {
+        bool inString = false;
+        int level = 1;
+        size_t j = begin;
+        bool escape = false;
+        while (
+            (j < end) && (level > 0) 
+        ) {
+            if (inString) {
+                if (escape) {
+                    escape = false;
+                } else {
+                    if (s[j] == '\\') {
+                        escape = true;
+                    } else if (s[j] == '"') {
+                        inString = false;
+                    }
+                }
+            } else {
+                if (
+                    (level == 1) 
+                    && (s[j] == ',') 
+                ) {
+                        break;
+                } else if (s[j] == '"') {
+                    inString = true;
+                } else if (
+                    (s[j] == '[')
+                    || (s[j] == '{')
+                    || (s[j] == '(')
+                    || (s[j] == '<')
+                ) {
+                    ++level;
+                } else if (
+                    (s[j] == ']')
+                    || (s[j] == '}')
+                    || (s[j] == ')')
+                    || (s[j] == '>')
+                 ) {
+                    --level;
+                }
+            } 
+            ++j;
+        }
+        return s.substr(begin, j - begin);
+    }
 } // namespace StringUtils
