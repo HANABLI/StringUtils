@@ -83,4 +83,20 @@ TEST(StringUtilsTests, Unescape_Test) {
     const std::string line = "Hello,^ W^^orld^!";
     ASSERT_EQ("Hello, W^orld!", StringUtils::Unescape(line, '^'));
 }
+
+TEST(StringUtilsTests, SplitWithCharDelimiter_Test) {
+    const std::string line = "Hello, World!";
+    ASSERT_EQ(
+        (std::vector< std::string >{"Hello,", "World!"}),
+        StringUtils::Split(line, ' ')
+    );
+}
+
+TEST(StringUtilsTests, SplitWhithMultiCharDelimiter_Test) {
+    const std::string line = "Hello::World!::My:Darling";
+    ASSERT_EQ(
+        (std::vector< std::string >{"Hello", "World!", "My:Darling"}),
+        StringUtils::Split(line, "::")
+    );
+}
 }
