@@ -34,3 +34,8 @@ TEST(StringUtilsTests, wcstombs_Test) {
     ASSERT_EQ("Hello, World!", StringUtils::wcstombs(L"Hello, World!"));
 
 }
+
+TEST(StringUtilsTests, Trim_Test) {
+    ASSERT_EQ("Hello, World!", StringUtils::Trim("  \t  \t\t  Hello, World! \r  \n \r\n \t \t\t  "));
+}
+}
