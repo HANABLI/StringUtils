@@ -208,4 +208,31 @@ TEST(StringUtilsTests, ToInteger_Test) {
         }
     }
 }
+
+TEST(StringUtilsTests, InstantiateTemplate) {
+    // Arrange
+    const std::string templateText = R"(
+        Hello, ${who}!
+        The $10,000 {which you owe ${who}}
+        is due to \${someone}
+        $\{when}.  ${something} This one ends ${early
+    )";
+    const std::map< std::string, std::string > variables{
+        {"who", "World"},
+        {"when", "tomorrow"},
+        {"what", "example"},
+    };
+
+    // Act
+    const auto instance = StringUtils::InstantiateTemplate(templateText, variables);
+
+    // Assert
+    EXPECT_EQ(
+        R"(
+        Hello, World!
+        The $10,000 {which you owe World}
+        is due to ${someone}
+        $\{when}.   This one ends )",
+        instance
+    );
 }
