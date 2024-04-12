@@ -78,4 +78,9 @@ TEST(StringUtilsTests, Escape_Test) {
     const std::string line = "Hello, W^orld!";
     ASSERT_EQ("Hello,^ W^^orld^!", StringUtils::Escape(line, '^', {' ', '!', '^'}));
 }
+
+TEST(StringUtilsTests, Unescape_Test) {
+    const std::string line = "Hello,^ W^^orld^!";
+    ASSERT_EQ("Hello, W^orld!", StringUtils::Unescape(line, '^'));
+}
 }
