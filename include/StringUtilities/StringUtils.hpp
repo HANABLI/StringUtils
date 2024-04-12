@@ -44,6 +44,7 @@ namespace StringUtils {
          */
         Overflow
     };
+
     /**
      * This fucntion is equivalent to the sprintf function in the standard C
      * library, except tha it constructs the string dynamically and
@@ -259,6 +260,26 @@ namespace StringUtils {
     *     successfully is returned. 
    */
   ToIntegerResult ToInteger(const std::string& numberString, intmax_t& number);
+
+    /**
+    * Take the given template and produce a string which is a copy of
+    * the template, but with substitution markers replaced by the values
+    * of corresponding entries in the given collection of variables.
+    *
+    * @param[in] templateText
+    *     This is the template to instantiate.
+    *
+    * @param[in] variables
+    *     This holds the values of variables which may be substituted
+    *     in the template.
+    *
+    * @return
+    *     The instantiated template is returned.
+    */
+    std::string InstantiateTemplate(
+        const std::string& templateText,
+        const std::map< std::string, std::string >& variables
+    );
 }
 
 

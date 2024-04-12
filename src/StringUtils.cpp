@@ -35,12 +35,14 @@ namespace StringUtils
        }
        return std::string(buffer.begin(), buffer.begin() + required);
     }
+
     std::string wcstombs(const std::wstring& src)
     {
         std::vector< char > buffer(src.length() * MB_CUR_MAX + 1);
         (void)::wcstombs(&buffer[0], src.c_str(), buffer.size());
         return std::string(&buffer[0]);
     }
+
     std::string Trim(const std::string& s) {
         size_t i = 0;
         while ((i < s.length()) && s[i] <= 32) {
@@ -54,6 +56,7 @@ namespace StringUtils
         }
         return s.substr(i, j - i);
     }
+
     std::string Indent(std::string linesIn, size_t spaces) {
         std::string linesOut;
         while(!linesIn.empty()) {
@@ -180,6 +183,7 @@ namespace StringUtils
         }
         return values;
     }
+
     std::string Join(const std::vector< std::string >& v, const char d) {
         std::ostringstream output;
         bool first = false;
@@ -286,5 +290,63 @@ namespace StringUtils
         } else {
             return ToIntegerResult::NotANumber;
         }
+    }
+
+
+    std::string InstantiateTemplate(
+        const std::string& templateText,
+        const std::map< std::string, std::string >& variables
+    ) {
+        std::ostringstream builder;
+        enum class State {
+            Normal,
+            Escape,
+            TokenStart,
+            Token,
+        } state = State::Normal;
+        std::string token;
+        for (auto c: templateText) {
+            switch (state) {
+                case State::Normal: {
+                    if (c == '\\') {
+                        state = State::Escape;
+                    } else if (c == '$') {
+                        state = State::TokenStart;
+                    } else {
+                        builder << c;
+                    }
+                } break;
+
+                case State::Escape: {
+                    state = State::Normal;
+                    builder << c;
+                } break;
+
+                case State::TokenStart: {
+                    if (c == '{') {
+                        state = State::Token;
+                        token.clear();
+                    } else {
+                        state = State::Normal;
+                        builder << '$' << c;
+                    }
+                } break;
+
+                case State::Token: {
+                    if (c == '}') {
+                        const auto variablesEntry = variables.find(token);
+                        if (variablesEntry != variables.end()) {
+                            builder << variablesEntry->second;
+                        }
+                        state = State::Normal;
+                    } else {
+                        token += c;
+                    }
+                } break;
+
+                default: break;
+            }
+        }
+        return builder.str();
     }
 } // namespace StringUtils
