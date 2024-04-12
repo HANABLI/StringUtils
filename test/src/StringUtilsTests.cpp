@@ -99,4 +99,21 @@ TEST(StringUtilsTests, SplitWhithMultiCharDelimiter_Test) {
         StringUtils::Split(line, "::")
     );
 }
+
+TEST(StringUtilsTests, JoinSingleCharacterDelimiter_Test) {
+    const std::vector< std::string >elements{"Hello", "World!"};
+    ASSERT_EQ(
+        "Hello-World!", 
+        StringUtils::Join(elements, '-')
+    );
+}
+
+
+TEST(StringUtilsTests, JoinMultiCharacterDelimiter_Test) {
+    const std::vector< std::string >elements{"Hello", "World!"};
+    ASSERT_EQ(
+        "Hello, World!", 
+        StringUtils::Join(elements, ", ")
+    );
+}
 }
