@@ -215,4 +215,76 @@ namespace StringUtils
         }
         return output.str();
     }
+
+    ToIntegerResult ToInteger(const std::string& stringNumber, intmax_t& number) {
+        size_t index = 0;
+        size_t state = 0;
+        bool negative = false;
+        intmax_t value = 0;
+        while (index < stringNumber.size()) {
+            switch (state) {
+                case 0: {
+                    if (stringNumber[index] == '-') {
+                        negative = true;
+                        ++index;
+                    }
+                    state = 1;
+                } break;
+
+                case 1: {
+                    if (stringNumber[index] == '0') {
+                        state = 2;
+                    } else if (
+                        (stringNumber[index] >= '1')
+                        && (stringNumber[index] <= '9')
+                    ) {
+                        state = 3;
+                        value = (decltype(value))(stringNumber[index] - '0');
+                        value = (value * (negative ? -1 : 1));
+                    } else {
+                        return ToIntegerResult::NotANumber;
+                    }
+                    ++index;
+                } break;
+
+                case 2: {
+                     return ToIntegerResult::NotANumber;
+                } break;
+
+                case 3: {
+                    if (
+                        (stringNumber[index] >= '0')
+                        && (stringNumber[index] <= '9')
+                    ) {
+                        const auto digit = (decltype(value))(stringNumber[index] - '0');
+                        if (negative) {
+                            if ((std::numeric_limits< decltype(value) >::lowest() + digit) / 10 > value) {
+                                return ToIntegerResult::Overflow;
+                            }
+                        } else {
+                            if ((std::numeric_limits< decltype(value) >::max() - digit) / 10 < value) {
+                                return ToIntegerResult::Overflow;
+                            }
+                        }
+                        value *= 10;
+                        if (negative) {
+                            value -= digit;
+                        } else {
+                            value += digit;
+                        }
+                        ++index;
+                    } else {
+                        return ToIntegerResult::NotANumber;
+                    }
+                } break;
+            }
+
+        }
+        if (state >= 2) {
+            number = value;
+            return ToIntegerResult::Success;
+        } else {
+            return ToIntegerResult::NotANumber;
+        }
+    }
 } // namespace StringUtils
