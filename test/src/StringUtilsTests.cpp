@@ -130,4 +130,82 @@ TEST(StringUtilsTests, Tolowers_Test) {
     EXPECT_EQ("foo1bar", StringUtils::Tolower("FOO1BAR"));
 }
 
+TEST(StringUtilsTests, ToInteger_Test) {
+     struct TestVector {
+        std::string input;
+        intmax_t output;
+        StringUtils::ToIntegerResult expectedResult;
+    };
+    const auto maxAsString = StringUtils::sprintf("%" PRIdMAX, std::numeric_limits< intmax_t >::max());
+    const auto minAsString = StringUtils::sprintf("%" PRIdMAX, std::numeric_limits< intmax_t >::lowest());
+    auto maxPlusOneAsString = maxAsString;
+    size_t digit = maxPlusOneAsString.length();
+    while (digit > 0) {
+        if (maxPlusOneAsString[digit-1] == '9') {
+            maxPlusOneAsString[digit-1] = '0';
+            --digit;
+        } else {
+            ++maxPlusOneAsString[digit-1];
+            break;
+        }
+    }
+    if (digit == 0) {
+        maxPlusOneAsString.insert(maxPlusOneAsString.begin(), '1');
+    }
+    auto minMinusOneAsString = minAsString;
+    digit = minMinusOneAsString.length();
+    while (digit > 1) {
+        if (minMinusOneAsString[digit-1] == '9') {
+            minMinusOneAsString[digit-1] = '0';
+            --digit;
+        } else {
+            ++minMinusOneAsString[digit-1];
+            break;
+        }
+    }
+    if (digit == 1) {
+        minMinusOneAsString.insert(maxPlusOneAsString.begin() + 1, '1');
+    }
+    const std::vector< TestVector > testVectors{
+        {"0", 0, StringUtils::ToIntegerResult::Success},
+        {"42", 42, StringUtils::ToIntegerResult::Success},
+        {"-42", -42, StringUtils::ToIntegerResult::Success},
+        {
+            maxAsString,
+            std::numeric_limits< intmax_t >::max(),
+            StringUtils::ToIntegerResult::Success
+        },
+        {
+            minAsString,
+            std::numeric_limits< intmax_t >::lowest(),
+            StringUtils::ToIntegerResult::Success
+        },
+        {
+            maxPlusOneAsString,
+            0,
+            StringUtils::ToIntegerResult::Overflow
+        },
+        {
+            minMinusOneAsString,
+            0,
+            StringUtils::ToIntegerResult::Overflow
+        },
+    };
+    for (const auto& testVector: testVectors) {
+        intmax_t output;
+        EXPECT_EQ(
+            testVector.expectedResult,
+            StringUtils::ToInteger(
+                testVector.input,
+                output
+            )
+        );
+        if (testVector.expectedResult == StringUtils::ToIntegerResult::Success) {
+            EXPECT_EQ(
+                output,
+                testVector.output
+            );
+        }
+    }
+}
 }
