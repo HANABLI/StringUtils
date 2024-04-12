@@ -171,6 +171,41 @@ namespace StringUtils {
    */
   std::vector< std::string > Split(const std::string& s, const std::string& d);
 
+  /**
+   * This function take the given sequence of substrings to 
+   * concatenate them together into a formel string, each piece separated by 
+   * the given delimiter character.
+   * 
+   * @param[in] v
+   *        This is the sequence of substrings to join together.
+   * 
+   * @param[in] d
+   *        This is the delimiter character used as glue between
+   *        substrings.
+   * @return
+   *        returns a string formed formed from the concatenation 
+   *        of the sequece of substrings separeted by the given 
+   *        delimiter character.
+  */
+ std::string Join(const std::vector< std::string >& v, const char d );
+
+   /**
+   * This function take the given sequence of substrings to 
+   * concatenate them together into a formel string, each piece separated by 
+   * the given delimiter character.
+   * 
+   * @param[in] v
+   *        This is the sequence of substrings to join together.
+   * 
+   * @param[in] d
+   *        This is the delimiter character used as glue between
+   *        substrings.
+   * @return
+   *        returns a string formed formed from the concatenation 
+   *        of the sequece of substrings separeted by the given 
+   *        delimiter character.
+  */
+ std::string Join(const std::vector< std::string >& v, const std::string& d );
 }
 
 

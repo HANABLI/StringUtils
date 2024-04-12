@@ -180,4 +180,31 @@ namespace StringUtils
         }
         return values;
     }
+    std::string Join(const std::vector< std::string >& v, const char d) {
+        std::ostringstream output;
+        bool first = false;
+        for (const auto& piece:v) {
+            if(!first) {
+                first = true;
+            } else {
+                 output << d;
+            }
+            output << piece;
+        }
+        return output.str();
+    }
+
+    std::string Join(const std::vector< std::string >& v, const std::string& d) {
+        std::ostringstream output;
+        bool first = false;
+        for (const auto& piece:v) {
+            if(!first) {
+                first = true;
+            } else {
+                 output << d;
+            }
+            output << piece;
+        }
+        return output.str();
+    }
 } // namespace StringUtils
