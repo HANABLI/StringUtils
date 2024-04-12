@@ -30,3 +30,7 @@ TEST(StringUtilsTests, sprintfReturnsStringComparabletoCppString) {
     ASSERT_EQ(expectedOutput, StringUtils::sprintf("The answer is %d.", 47));
 }
 
+TEST(StringUtilsTests, wcstombs_Test) {
+    ASSERT_EQ("Hello, World!", StringUtils::wcstombs(L"Hello, World!"));
+
+}
