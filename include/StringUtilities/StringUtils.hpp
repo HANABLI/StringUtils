@@ -140,6 +140,37 @@ namespace StringUtils {
      *      the given escapeCharacter.
     */
    std::string Unescape(const std::string& s, char escapeCharacter);
+
+   /**
+    * This function break the given string at each instance of the 
+    * given delimiter, returning the pieces as a collection of 
+    * substrings. Tha delimiter charachters are removed.
+    * 
+    * @param[in] s
+    *       This is the string to split.
+    * @param[in] d
+    *       This is the delimiter character at which to split the string.
+    * @return
+    *       returns the collection of substrings that result from breaking 
+    *       the given string at each delimiter character. 
+   */
+  std::vector< std::string > Split(const std::string& s, char d);
+
+    /**
+    * This function break the given string at each instance of the 
+    * given delimiter, returning the pieces as a collection of 
+    * substrings. Tha delimiter charachters are removed.
+    * 
+    * @param[in] s
+    *       This is the string to split.
+    * @param[in] d
+    *       This is the delimiter string at which to split the string.
+    * @return
+    *       returns the collection of substrings that result from breaking 
+    *       the given string at each delimiter string. 
+   */
+  std::vector< std::string > Split(const std::string& s, const std::string& d);
+
 }
 
 

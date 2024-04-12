@@ -145,4 +145,39 @@ namespace StringUtils
         }
         return output;
     }
+
+    std::vector< std::string > Split(const std::string& s, char d) {
+        std::vector< std::string > values;
+        auto remainder = Trim(s);
+        while (!remainder.empty()) {
+            auto delimiter = remainder.find_first_of(d);
+            if (delimiter == std::string::npos) {
+                values.push_back(remainder);
+                remainder.clear();
+            } else {
+                values.push_back(Trim(remainder.substr(0, delimiter)));
+                remainder = Trim(remainder.substr(delimiter + 1));
+            }
+        }
+        return values;
+    }
+
+    std::vector< std::string > Split(const std::string& s, const std::string& d) {
+        std::vector< std::string > values;
+        auto remainder = Trim(s);
+        const auto delimiterLength = d.length();
+        while (!remainder.empty()) 
+        {
+            /* code */
+            auto delimiter = remainder.find(d);
+            if (delimiter == std::string::npos) {
+                values.push_back(remainder);
+                remainder.clear();
+            } else {
+                values.push_back(Trim(remainder.substr(0, delimiter)));
+                remainder = Trim(remainder.substr(delimiter + delimiterLength));
+            }
+        }
+        return values;
+    }
 } // namespace StringUtils
