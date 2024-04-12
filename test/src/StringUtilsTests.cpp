@@ -73,4 +73,9 @@ TEST(StringUtilsTests, ParseComponent_Test) {
     const std::string line = "Value = {abc {c} = def} NextValue = 42";
     ASSERT_EQ("abc {c} = def}", StringUtils::ParseComponent(line, 9, line.length()));
 }
+
+TEST(StringUtilsTests, Escape_Test) {
+    const std::string line = "Hello, W^orld!";
+    ASSERT_EQ("Hello,^ W^^orld^!", StringUtils::Escape(line, '^', {' ', '!', '^'}));
+}
 }
