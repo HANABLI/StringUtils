@@ -102,6 +102,29 @@ namespace StringUtils {
      *      the next component.
     */
     std::string ParseComponent(const std::string& s, size_t begin, size_t end);
+
+    /**
+     * This function return a copie of the given input string, modifird
+     * so that every character in the given "charactersToEscape" that is
+     * found in the input string is prefixed by the given "escapeCharacter".
+     *
+     * @param[in] s
+     *     This is the input string.
+     *
+     * @param[in] escapeCharacter
+     *     This is the character to put in front of every character
+     *     in the input string that is a member of the
+     *     "charactersToEscape" set.
+     *
+     * @param[in] charactersToEscape
+     *     These are the characters that should be escaped in the input.
+     *
+     * @return
+     *     A copy of the input string is returned, where every character
+     *     in the given "charactersToEscape" that is found in the input
+     *     string is prefixed by the given "escapeCharacter".
+     */
+    std::string Escape(const std::string& s, char escapeCharacter, const std::set< char >& charactersToEscape);
 }
 
 

@@ -120,4 +120,15 @@ namespace StringUtils
         }
         return s.substr(begin, j - begin);
     }
+
+    std::string Escape(const std::string& s, char escapeCharacter, const std::set< char >& charactersToEscape) {
+        std::string output;
+        for (size_t i = 0; i < s.length(); ++i) {
+            if (charactersToEscape.find(s[i]) != charactersToEscape.end()) {
+                output += escapeCharacter;
+            }
+            output += s[i];
+        }
+        return output;
+    }
 } // namespace StringUtils
