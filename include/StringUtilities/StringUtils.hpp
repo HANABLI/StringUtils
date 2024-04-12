@@ -58,6 +58,24 @@ namespace StringUtils {
      *      The trimed string is returned.
     */
     std::string Trim(const std::string& s);
+
+    /**
+     * This function breaks up the given string into lines,
+     * according to any CR-LF end-of-line character sequences found
+     * in the string, indents all lines except the first,
+     * and then concatenates the lines back together, returning
+     * them as a single string.
+     * 
+     * @param[in] linesIn
+     *      This is the string containing the lines to indent.
+     * 
+     * @param[in] spaces
+     *      This is the number of spaces to indent each line but the first.
+     * 
+     * @return
+     *      returns the indented text as a single string.
+    */
+    std::string Indent(std::string linesIn, size_t spaces);
 }
 
 
