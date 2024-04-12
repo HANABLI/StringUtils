@@ -69,4 +69,8 @@ TEST(StringUtilsTests, Indent_Test) {
     );
 }
 
+TEST(StringUtilsTests, ParseComponent_Test) {
+    const std::string line = "Value = {abc {c} = def} NextValue = 42";
+    ASSERT_EQ("abc {c} = def}", StringUtils::ParseComponent(line, 9, line.length()));
+}
 }
