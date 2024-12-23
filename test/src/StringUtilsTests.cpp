@@ -1,10 +1,10 @@
 /**
  * @file StringUtils.cpp
- * 
- * This module contains unit Tests of the StringUtils functions 
- * 
+ *
+ * This module contains unit Tests of the StringUtils functions
+ *
  * © 2024 by Hatem Nabli
-*/
+ */
 
 #include <gtest\gtest.h>
 #include <StringUtils\StringUtils.hpp>
@@ -32,41 +32,32 @@ TEST(StringUtilsTests, sprintfReturnsStringComparabletoCppString) {
 
 TEST(StringUtilsTests, wcstombs_Test) {
     ASSERT_EQ("Hello, World!", StringUtils::wcstombs(L"Hello, World!"));
-
 }
 
 TEST(StringUtilsTests, Trim_Test) {
-    ASSERT_EQ("Hello, World!", StringUtils::Trim("  \t  \t\t  Hello, World! \r  \n \r\n \t \t\t  "));
+    ASSERT_EQ("Hello, World!",
+              StringUtils::Trim("  \t  \t\t  Hello, World! \r  \n \r\n \t \t\t  "));
 }
 
 TEST(StringUtilsTests, Indent_Test) {
     ASSERT_EQ(
         "Hello, World!\r\n"
         "  This is line 2\r\n"
-        "  This is line 3\r\n", 
-        StringUtils::Indent( 
-            "Hello, World!\r\n"
-            "This is line 2\r\n"
-            "This is line 3\r\n",
-            2
-        )
-    );
+        "  This is line 3\r\n",
+        StringUtils::Indent("Hello, World!\r\n"
+                            "This is line 2\r\n"
+                            "This is line 3\r\n",
+                            2));
 
-    ASSERT_EQ(
-    (
-        "Struct {\r\n"
-        "  field 1\r\n"
-        "  field 2\r\n"
-        "}"
-    ),
-    "Struct {"
-    + StringUtils::Indent(
-        "\r\nfield 1"
-        "\r\nfield 2",
-        2
-    )
-    + "\r\n}"
-    );
+    ASSERT_EQ(("Struct {\r\n"
+               "  field 1\r\n"
+               "  field 2\r\n"
+               "}"),
+              "Struct {" +
+                  StringUtils::Indent("\r\nfield 1"
+                                      "\r\nfield 2",
+                                      2) +
+                  "\r\n}");
 }
 
 TEST(StringUtilsTests, ParseComponent_Test) {
@@ -86,35 +77,23 @@ TEST(StringUtilsTests, Unescape_Test) {
 
 TEST(StringUtilsTests, SplitWithCharDelimiter_Test) {
     const std::string line = "Hello, World!";
-    ASSERT_EQ(
-        (std::vector< std::string >{"Hello,", "World!"}),
-        StringUtils::Split(line, ' ')
-    );
+    ASSERT_EQ((std::vector<std::string>{"Hello,", "World!"}), StringUtils::Split(line, ' '));
 }
 
 TEST(StringUtilsTests, SplitWhithMultiCharDelimiter_Test) {
     const std::string line = "Hello::World!::My:Darling";
-    ASSERT_EQ(
-        (std::vector< std::string >{"Hello", "World!", "My:Darling"}),
-        StringUtils::Split(line, "::")
-    );
+    ASSERT_EQ((std::vector<std::string>{"Hello", "World!", "My:Darling"}),
+              StringUtils::Split(line, "::"));
 }
 
 TEST(StringUtilsTests, JoinSingleCharacterDelimiter_Test) {
-    const std::vector< std::string >elements{"Hello", "World!"};
-    ASSERT_EQ(
-        "Hello-World!", 
-        StringUtils::Join(elements, '-')
-    );
+    const std::vector<std::string> elements{"Hello", "World!"};
+    ASSERT_EQ("Hello-World!", StringUtils::Join(elements, '-'));
 }
 
-
 TEST(StringUtilsTests, JoinMultiCharacterDelimiter_Test) {
-    const std::vector< std::string >elements{"Hello", "World!"};
-    ASSERT_EQ(
-        "Hello, World!", 
-        StringUtils::Join(elements, ", ")
-    );
+    const std::vector<std::string> elements{"Hello", "World!"};
+    ASSERT_EQ("Hello, World!", StringUtils::Join(elements, ", "));
 }
 
 TEST(StringUtilsTests, Tolowers_Test) {
@@ -131,81 +110,64 @@ TEST(StringUtilsTests, Tolowers_Test) {
 }
 
 TEST(StringUtilsTests, ToInteger_Test) {
-     struct TestVector {
+    struct TestVector
+    {
         std::string input;
         intmax_t output;
         StringUtils::ToIntegerResult expectedResult;
     };
-    const auto maxAsString = StringUtils::sprintf("%" PRIdMAX, std::numeric_limits< intmax_t >::max());
-    const auto minAsString = StringUtils::sprintf("%" PRIdMAX, std::numeric_limits< intmax_t >::lowest());
+    const auto maxAsString =
+        StringUtils::sprintf("%" PRIdMAX, std::numeric_limits<intmax_t>::max());
+    const auto minAsString =
+        StringUtils::sprintf("%" PRIdMAX, std::numeric_limits<intmax_t>::lowest());
     auto maxPlusOneAsString = maxAsString;
     size_t digit = maxPlusOneAsString.length();
-    while (digit > 0) {
-        if (maxPlusOneAsString[digit-1] == '9') {
-            maxPlusOneAsString[digit-1] = '0';
+    while (digit > 0)
+    {
+        if (maxPlusOneAsString[digit - 1] == '9')
+        {
+            maxPlusOneAsString[digit - 1] = '0';
             --digit;
-        } else {
-            ++maxPlusOneAsString[digit-1];
+        } else
+        {
+            ++maxPlusOneAsString[digit - 1];
             break;
         }
     }
-    if (digit == 0) {
-        maxPlusOneAsString.insert(maxPlusOneAsString.begin(), '1');
-    }
+    if (digit == 0)
+    { maxPlusOneAsString.insert(maxPlusOneAsString.begin(), '1'); }
     auto minMinusOneAsString = minAsString;
     digit = minMinusOneAsString.length();
-    while (digit > 1) {
-        if (minMinusOneAsString[digit-1] == '9') {
-            minMinusOneAsString[digit-1] = '0';
+    while (digit > 1)
+    {
+        if (minMinusOneAsString[digit - 1] == '9')
+        {
+            minMinusOneAsString[digit - 1] = '0';
             --digit;
-        } else {
-            ++minMinusOneAsString[digit-1];
+        } else
+        {
+            ++minMinusOneAsString[digit - 1];
             break;
         }
     }
-    if (digit == 1) {
-        minMinusOneAsString.insert(maxPlusOneAsString.begin() + 1, '1');
-    }
-    const std::vector< TestVector > testVectors{
+    if (digit == 1)
+    { minMinusOneAsString.insert(maxPlusOneAsString.begin() + 1, '1'); }
+    const std::vector<TestVector> testVectors{
         {"0", 0, StringUtils::ToIntegerResult::Success},
         {"42", 42, StringUtils::ToIntegerResult::Success},
         {"-42", -42, StringUtils::ToIntegerResult::Success},
-        {
-            maxAsString,
-            std::numeric_limits< intmax_t >::max(),
-            StringUtils::ToIntegerResult::Success
-        },
-        {
-            minAsString,
-            std::numeric_limits< intmax_t >::lowest(),
-            StringUtils::ToIntegerResult::Success
-        },
-        {
-            maxPlusOneAsString,
-            0,
-            StringUtils::ToIntegerResult::Overflow
-        },
-        {
-            minMinusOneAsString,
-            0,
-            StringUtils::ToIntegerResult::Overflow
-        },
+        {maxAsString, std::numeric_limits<intmax_t>::max(), StringUtils::ToIntegerResult::Success},
+        {minAsString, std::numeric_limits<intmax_t>::lowest(),
+         StringUtils::ToIntegerResult::Success},
+        {maxPlusOneAsString, 0, StringUtils::ToIntegerResult::Overflow},
+        {minMinusOneAsString, 0, StringUtils::ToIntegerResult::Overflow},
     };
-    for (const auto& testVector: testVectors) {
+    for (const auto& testVector : testVectors)
+    {
         intmax_t output;
-        EXPECT_EQ(
-            testVector.expectedResult,
-            StringUtils::ToInteger(
-                testVector.input,
-                output
-            )
-        );
-        if (testVector.expectedResult == StringUtils::ToIntegerResult::Success) {
-            EXPECT_EQ(
-                output,
-                testVector.output
-            );
-        }
+        EXPECT_EQ(testVector.expectedResult, StringUtils::ToInteger(testVector.input, output));
+        if (testVector.expectedResult == StringUtils::ToIntegerResult::Success)
+        { EXPECT_EQ(output, testVector.output); }
     }
 }
 
@@ -217,7 +179,7 @@ TEST(StringUtilsTests, InstantiateTemplate) {
         is due to \${someone}
         $\{when}.  ${something} This one ends ${early
     )";
-    const std::map< std::string, std::string > variables{
+    const std::map<std::string, std::string> variables{
         {"who", "World"},
         {"when", "tomorrow"},
         {"what", "example"},
@@ -233,6 +195,15 @@ TEST(StringUtilsTests, InstantiateTemplate) {
         The $10,000 {which you owe World}
         is due to ${someone}
         $\{when}.   This one ends )",
-        instance
-    );
+        instance);
+}
+
+TEST(StringUtilsTests, NormalizeCaseInsensitiveStringTests) {
+    ASSERT_EQ("example", NormalizeCaseInsensitiveString("example"));
+    ASSERT_EQ("example", NormalizeCaseInsensitiveString("eXAMple"));
+    ASSERT_EQ("example", NormalizeCaseInsensitiveString("EXAMPLE"));
+    ASSERT_EQ("example", NormalizeCaseInsensitiveString("exAMPLE"));
+    ASSERT_EQ("example", NormalizeCaseInsensitiveString("EXAmple"));
+    ASSERT_EQ("example", NormalizeCaseInsensitiveString("eXampLe"));
+    ASSERT_EQ("example", NormalizeCaseInsensitiveString("ExamplE"));
 }
