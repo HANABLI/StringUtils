@@ -199,11 +199,11 @@ TEST(StringUtilsTests, InstantiateTemplate) {
 }
 
 TEST(StringUtilsTests, NormalizeCaseInsensitiveStringTests) {
-    ASSERT_EQ("example", NormalizeCaseInsensitiveString("example"));
-    ASSERT_EQ("example", NormalizeCaseInsensitiveString("eXAMple"));
-    ASSERT_EQ("example", NormalizeCaseInsensitiveString("EXAMPLE"));
-    ASSERT_EQ("example", NormalizeCaseInsensitiveString("exAMPLE"));
-    ASSERT_EQ("example", NormalizeCaseInsensitiveString("EXAmple"));
-    ASSERT_EQ("example", NormalizeCaseInsensitiveString("eXampLe"));
-    ASSERT_EQ("example", NormalizeCaseInsensitiveString("ExamplE"));
+    ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("example"));
+    ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("eXAMple"));
+    ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("EXAMPLE"));
+    ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("exAMPLE"));
+    ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("EXAmple"));
+    ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("eXampLe"));
+    ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("ExamplE"));
 }
