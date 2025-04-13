@@ -289,6 +289,16 @@ namespace StringUtils
      *      returns the normalized string with only lower-case characters.
      */
     std::string NormalizeCaseInsensitiveString(const std::string& inputString);
+
+    /**
+     * This function takes a string chaine and remove margin whitespace.
+     * 
+     * @param[in] inputString
+     *      this is the string chaine to be traited
+     * @return
+     *      returns a string without margin or whitespaces.
+     */
+    std::string StripMarginWhitespace(const std::string& inputString);
 }  // namespace StringUtils
 
 #endif /*STRING_UTILS_HPP*/

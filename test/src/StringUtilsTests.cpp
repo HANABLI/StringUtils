@@ -207,3 +207,10 @@ TEST(StringUtilsTests, NormalizeCaseInsensitiveStringTests) {
     ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("eXampLe"));
     ASSERT_EQ("example", StringUtils::NormalizeCaseInsensitiveString("ExamplE"));
 }
+
+TEST(StringUtilsTest, StripMarginWhitespaceTest) {
+    ASSERT_EQ("example", StringUtils::StripMarginWhitespace("example "));
+    ASSERT_EQ("example,example", StringUtils::StripMarginWhitespace("example ,example"));
+    ASSERT_EQ("example", StringUtils::StripMarginWhitespace(" example "));
+    ASSERT_EQ("example,example", StringUtils::StripMarginWhitespace(" example, example "));
+}

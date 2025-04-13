@@ -361,4 +361,14 @@ namespace StringUtils
         { outputString.push_back(tolower(c)); }
         return outputString;
     }
+
+    std::string StripMarginWhitespace(const std::string& inputString) {
+        std::string outputString;
+        for (char c : inputString) {
+            if (!std::isspace(c)) {
+                outputString += c;
+            }
+        }
+        return outputString;
+    }
 }  // namespace StringUtils
